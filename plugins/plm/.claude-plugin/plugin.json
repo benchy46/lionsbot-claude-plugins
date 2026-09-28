@@ -1,0 +1,24 @@
+{
+  "name": "plm",
+  "version": "1.0.0",
+  "description": "The LionsBot PLM in Claude: read SKU folders, component metadata, drawing-extracted metadata and BOMs, and upload SolidWorks STEP/PDF exports to a SKU. Signs in as you (your hub / PLM login).",
+  "author": {
+    "name": "LionsBot mechanical"
+  },
+  "keywords": ["plm", "bom", "sku", "solidworks", "lionsbot", "mcp"],
+  "userConfig": {
+    "email": {
+      "type": "string",
+      "title": "PLM email",
+      "description": "Your @lionsbot.com login for the Hardware Tools hub / PLM",
+      "required": true
+    },
+    "password": {
+      "type": "string",
+      "title": "PLM password",
+      "description": "Your hub / PLM password (not your Google or Microsoft one). Kept in the Windows credential store.",
+      "required": true,
+      "sensitive": true
+    }
+  }
+}

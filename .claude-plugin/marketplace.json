@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "lionsbot",
+  "description": "LionsBot mechanical team plugins for Claude Code: the PLM and the System Wiring Diagram's component database. Each asks for your own hub login.",
+  "owner": {
+    "name": "LionsBot mechanical"
+  },
+  "plugins": [
+    {
+      "name": "system-diagram",
+      "description": "Import a component datasheet into the ECDB: product photo, MPN, wires / terminals / built-in connectors with every pin's function. No ID; a person assigns it. Asks for your hub login once at install.",
+      "source": "./plugins/system-diagram",
+      "category": "productivity"
+    },
+    {
+      "name": "plm",
+      "description": "The LionsBot PLM: SKU folders, component metadata, BOMs, and STEP/PDF upload by SKU. Asks for your hub / PLM login once at install. MCP server (npm plm-upload-mcp).",
+      "source": "./plugins/plm",
+      "category": "productivity"
+    }
+  ]
+}

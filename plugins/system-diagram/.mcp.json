@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "system-diagram": {
+      "command": "uv",
+      "args": ["run", "--script", "${CLAUDE_PLUGIN_ROOT}/server.py"],
+      "env": {
+        "HUB_EMAIL": "${user_config.email}",
+        "HUB_PASSWORD": "${user_config.password}"
+      }
+    }
+  }
+}
