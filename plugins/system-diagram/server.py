@@ -73,7 +73,7 @@ def xref_image(doc, xref: int) -> tuple[bytes, str]:
         return info["image"], "jpg" if info["ext"] == "jpeg" else "png"
     pix = fitz.Pixmap(doc, xref)
     if pix.n - pix.alpha > 3: pix = fitz.Pixmap(fitz.csRGB, pix)
-    if info.get("smask"): pix = fitz.Pixmap(pix, fitz.Pixmap(doc, info["smask"]))
+    if info.get("smask") and not pix.alpha: pix = fitz.Pixmap(pix, fitz.Pixmap(doc, info["smask"]))   # newer PyMuPDF applies the mask itself
     return pix.tobytes("png"), "png"
 
 
