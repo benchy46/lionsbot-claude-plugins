@@ -5,7 +5,8 @@
       "args": ["run", "--script", "${CLAUDE_PLUGIN_ROOT}/server.py"],
       "env": {
         "HUB_EMAIL": "${user_config.email}",
-        "HUB_PASSWORD": "${user_config.password}"
+        "HUB_PASSWORD": "${user_config.password}",
+        "MIRO_TOKEN": "${user_config.miro_token}"
       }
     }
   }
