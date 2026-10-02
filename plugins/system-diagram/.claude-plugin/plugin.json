@@ -1,6 +1,6 @@
 {
   "name": "system-diagram",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "System Wiring Diagram tools: import a component datasheet into the ECDB (photo, MPN, wires / terminals / built-in connectors with every pin's function; no ID — a person assigns it), and import a diagram drawn in draw.io or Miro as a new wiring-diagram project (boxes → ECDB components, lines → wires). Signs in as you (your hub login).",
   "author": {
     "name": "LionsBot mechanical"

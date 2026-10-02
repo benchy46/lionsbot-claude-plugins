@@ -108,4 +108,17 @@ assert out["wires"][0]["from"] == "Brush Motor · +24V" and out["wires"][0]["col
 os.environ["MIRO_TOKEN"] = "${user_config.miro_token}"
 try: server.read_miro("x"); assert False
 except RuntimeError as e: assert "no Miro access token" in str(e)
+
+# a JPEG photo whose soft mask has /Matte (pre-multiplied, like the FKCN2210 datasheet) keeps its transparent background:
+# PyMuPDF 1.28 hands it back with an all-255 alpha channel, the mask not applied
+fitz = server.fitz
+rgb = fitz.Pixmap(fitz.csRGB, 8, 8, bytes((0, 0, 255)) * 64, False)
+mask = fitz.Pixmap(fitz.csGRAY, 8, 8, bytes((255,) * 4 + (0,) * 4) * 8, False)   # left half opaque, right half transparent
+doc = fitz.open(); page = doc.new_page(); page.insert_image(page.rect, stream=rgb.tobytes("jpeg"), mask=mask.tobytes("png"))
+xref = doc[0].get_images()[0][0]
+doc.xref_set_key(doc.extract_image(xref)["smask"], "Matte", "[0 0 0]")
+doc = fitz.open("pdf", doc.tobytes())
+img, ext = server.xref_image(doc, xref)
+alpha = fitz.Pixmap(img).samples[3::4]
+assert ext == "png" and min(alpha) == 0 and max(alpha) == 255, (ext, min(alpha), max(alpha))
 print("ok")
