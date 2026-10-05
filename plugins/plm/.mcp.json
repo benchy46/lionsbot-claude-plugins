@@ -2,7 +2,7 @@
   "mcpServers": {
     "plm-upload": {
       "command": "cmd",
-      "args": ["/c", "npx", "-y", "plm-upload-mcp"],
+      "args": ["/c", "npx", "-y", "plm-upload-mcp@latest"],
       "env": {
         "PLM_EMAIL": "${user_config.email}",
         "PLM_PASSWORD": "${user_config.password}"

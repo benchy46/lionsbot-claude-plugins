@@ -7,7 +7,7 @@ what your account can.
 | Plugin | What it does | Needs |
 |---|---|---|
 | `system-diagram` | Import a component datasheet into the System Wiring Diagram's component database (ECDB): photo, MPN, wires / terminals / connectors with every pin's function. New parts have no ID until a person assigns one. | [uv](https://docs.astral.sh/uv/) |
-| `plm` | Read the PLM (SKU folders, metadata, BOMs) and upload STEP / PDF exports to a SKU. | [Node.js](https://nodejs.org/en/download) 18+ |
+| `plm` | Read the PLM (SKU folders, metadata, BOMs) upload STEP / PDF exports to a SKU, create Drive folders, uprev staging prototypes. | [Node.js](https://nodejs.org/en/download) 18+ |
 
 ## Install (Claude Code)
 

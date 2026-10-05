@@ -14,7 +14,7 @@
     },
     {
       "name": "plm",
-      "description": "The LionsBot PLM: SKU folders, component metadata, BOMs, and STEP/PDF upload by SKU. Asks for your hub / PLM login once at install. MCP server (npm plm-upload-mcp).",
+      "description": "The LionsBot PLM: SKU folders, component metadata, BOMs, STEP/PDF upload by SKU, Drive folders and uprev. Asks for your hub / PLM login once at install. MCP server (npm plm-upload-mcp).",
       "source": "./plugins/plm",
       "category": "productivity"
     }
