@@ -162,12 +162,14 @@ def create_component(name: str, category: str = "Electrical", manufacturer: str 
     - terminals: screw / spade / ring-lug points, one wire each, named as marked ('B+', 'L', 'PE')
     - connectors: headers / sockets on the body, each with its name and every pin's function in pin order
     image: the product photo — 'xref:<n>' or 'crop:<page>:x0,y0,x1,y1' from read_datasheet (needs datasheet_path), or an
-    image file path (.png .jpg .webp). mpn = the manufacturer part number; category e.g. Motor Driver, Motor, Sensor, LED,
+    image file path (.png .jpg .webp). mpn = the manufacturer part number (model_number is the old name for it, used
+    only when mpn is empty); category e.g. Motor Driver, Motor, Sensor, LED,
     Electrical; properties = short extra facts (rated voltage, source page …).
 
     apply=False (default) is a PREVIEW: nothing is written; it returns the row, the chosen photo, duplicates, and what
     still blocks Assign ID. Show the user the preview, then call again with apply=True to insert it."""
     if not name.strip(): raise ValueError("name is required")
+    mpn = mpn.strip() or model_number.strip()   # the ECDB keeps model_number empty: it is the part number
     if not (wires or terminals or connectors): raise ValueError("give at least one of wires, terminals or connectors")
     for c in connectors:
         if not c.pins: raise ValueError(f"connector '{c.name}' has no pins: list each pin's function ('' if the datasheet names none)")
@@ -180,9 +182,9 @@ def create_component(name: str, category: str = "Electrical", manufacturer: str 
     sha = hashlib.sha256(img).hexdigest() if img else None
     existing = call("/rest/v1/component_types?select=id,name,category,icon,electrical_id,manufacturer_part_no,image_sha256")
     icons = collections.Counter(r["icon"] for r in existing if r["category"] == category.strip() and r["icon"])
-    uid = login()["uid"]   # the photo goes in the user's own folder, like an upload from the hub
-    path = f"{uid}/{cid}.{ext}"
-    row = {"id": cid, "owner_id": uid, "name": name.strip(), "model_number": model_number.strip(), "manufacturer": manufacturer.strip(),
+    uid = login()["uid"]
+    path = f"parts/{cid}"   # the part's one photo file, as an upload from the hub
+    row = {"id": cid, "owner_id": uid, "name": name.strip(), "model_number": "", "manufacturer": manufacturer.strip(),
            "category": category.strip() or "Electrical", "icon": icons.most_common(1)[0][0] if icons else "🔧",
            "num_pinouts": max(1, len(pins)), "pins": pins, "default_connector": "", "connectors": [], "default_properties": properties,
            "image_url": f"{URL}/storage/v1/object/public/{BUCKET}/{path}" if img else None, "image_sha256": sha,
